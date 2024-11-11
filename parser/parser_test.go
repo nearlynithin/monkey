@@ -19,11 +19,12 @@ func TestLetStatements(t *testing.T) {
 	p := New(l)
 
 	program := p.ParseProgram()
+	checkParserErrors(t,p)
 	if program == nil {
 		log.Fatalf("ParseProgram() function returned nil")
 	}
 	if len(program.Statements) != 3 {
-		log.Fatalf("program.Statements doe not contain 3 statements. got=%d",len(program.Statements))
+		log.Fatalf("program.Statements does not contain 3 statements. got=%d",len(program.Statements))
 	}
 
 	tests := []struct {
@@ -62,4 +63,19 @@ func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 	}
 
 	return true
+}
+
+//method to log errors if any
+func checkParserErrors(t *testing.T, p* Parser) {
+	errors := p.Errors()
+
+	if len(errors) == 0 {
+		return
+	}
+
+	t.Errorf("parser has %d errors",len(errors))
+	for _,msg := range errors {
+		t.Errorf("parse error: %q",msg)
+	}
+	t.FailNow()
 }
