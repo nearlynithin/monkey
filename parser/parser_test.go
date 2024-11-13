@@ -167,6 +167,6 @@ func TestIntegerLiteralExpression(t *testing.T) {
 	}
 
 	if literal.TokenLiteral() != "5" {
-		t.Errorf("literal.TokenLiteral is not %s, got=%d","5",literal.TokenLiteral())
+		t.Errorf("literal.TokenLiteral is not %s, got=%s","5",literal.TokenLiteral())
 	}
 }
