@@ -7,6 +7,7 @@ import (
 
 	"github.com/nearlynithin/monkey/lexer"
 	"github.com/nearlynithin/monkey/parser"
+	"github.com/nearlynithin/monkey/evaluator"
 )
 
 const MONKEY_FACE = `
@@ -83,8 +84,11 @@ func Start(in io.Reader, out io.Writer) {
 			continue
 		}
 	
-		io.WriteString(out, program.String())
-		io.WriteString(out,"\n")
+      evaluated := evaluator.Eval(program)
+      if evaluated != nil {
+         io.WriteString(out,evaluated.Inspect())
+         io.WriteString(out,"\n")
+      }
 	}
 }
 
