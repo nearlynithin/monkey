@@ -1,6 +1,6 @@
 package evaluator
 
-import(
+import (
 	"github.com/nearlynithin/monkey/ast"
 	"github.com/nearlynithin/monkey/object"
 )
@@ -8,7 +8,7 @@ import(
 var (
 	TRUE = &object.Boolean{Value: true}
 	FALSE = &object.Boolean{Value: false}
-	NULL = &object.Boolean{}
+	NULL = &object.Null{}
 )
 
 func Eval(node ast.Node) object.Object {
