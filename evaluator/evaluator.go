@@ -22,6 +22,12 @@ func Eval(node ast.Node) object.Object {
 		return Eval(node.Expression)
 	case *ast.BlockStatement:
 		return evalBlockStatement(node)
+	case *ast.ReturnStatement:
+		val := Eval(node.ReturnValue)
+		if isError(val) {
+			return val
+		}
+		return &object.ReturnValue{Value: val}
 
 	// Expressions
 	case *ast.IntegerLiteral:
@@ -46,12 +52,6 @@ func Eval(node ast.Node) object.Object {
 		return evalInfixExpression(node.Operator, left, right)
 	case *ast.IfExpression:
 		return evalIfExpression(node)
-	case *ast.ReturnStatement:
-		val := Eval(node.ReturnValue)
-		if isError(val) {
-			return val
-		}
-		return &object.ReturnValue{Value: val}
 	}
 
 	return nil
