@@ -300,3 +300,17 @@ func TestFunctionApplication(t *testing.T) {
 		testIntegerObject(t,evaluated,tt.expected)
 	}
 }
+
+func TestStringLiteral(t *testing.T) {
+	input := `"Hello World!"`
+
+	evaluated := testEval(input)
+	str, ok := evaluated.(*object.String)
+	if !ok {
+		t.Fatalf("evaluated is not Stirng, got=%T(%v)",evaluated,evaluated)
+	}
+
+	if str.Value != "Hello World!" {
+		t.Errorf("Wrong string value, expected=\"Hello World!\", got=%q",str.Value)
+	}
+}
